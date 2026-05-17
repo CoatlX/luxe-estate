@@ -120,5 +120,120 @@ export const newProperties: Property[] = [
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCfGXdY0g51ojSg0GMeTW9ndLY3mpKK3oMtWxo2nwd_dwi1pgn1Boi_ovaDGIFhUA7nwu3WdBch8ZuHxoHu3QfgM5ceAsp8pglRVyCROWNcy9zeDNP2wqLoevyKGcaEyFYHYpIx2KK46nLWthnHiHugmkKw48kJsL8IjMO1bL3T1Zwt8bvQDTTUHTgB3GqZ2RU2asRzF1jVg0rLw3LWXXTq0YF1CsbhlWpYOuCEpH5bB8zkBlbKXR4At_M46AL8rJqn5c6BrPD5PP8',
     type: 'RENT',
     hiddenClass: 'hidden lg:flex'
+  },
+  {
+    id: 'n7',
+    title: 'Sunset Hills Villa',
+    price: '$1,850,000',
+    location: '824 Sunset Blvd, Los Angeles',
+    beds: 4,
+    baths: 3.5,
+    area: '280m²',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    type: 'SALE'
+  },
+  {
+    id: 'n8',
+    title: 'Cozy Forest Cabin',
+    price: '$2,400',
+    priceSuffix: '/mo',
+    location: '104 Alpine Way, Aspen',
+    beds: 2,
+    baths: 1,
+    area: '75m²',
+    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+    type: 'RENT'
+  },
+  {
+    id: 'n9',
+    title: 'Nordic Minimalist House',
+    price: '$920,000',
+    location: '42 Fjord Rd, Oslo',
+    beds: 3,
+    baths: 2,
+    area: '140m²',
+    image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80',
+    type: 'SALE'
+  },
+  {
+    id: 'n10',
+    title: 'Aesthetic Studio Loft',
+    price: '$1,800',
+    priceSuffix: '/mo',
+    location: '88 Soho St, London',
+    beds: 1,
+    baths: 1,
+    area: '60m²',
+    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80',
+    type: 'RENT'
+  },
+  {
+    id: 'n11',
+    title: 'Suburban Luxury Residence',
+    price: '$1,250,000',
+    location: '702 Maple Ave, Boston',
+    beds: 4,
+    baths: 3,
+    area: '220m²',
+    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80',
+    type: 'SALE'
+  },
+  {
+    id: 'n12',
+    title: 'Beachfront Sanctuary',
+    price: '$5,600',
+    priceSuffix: '/mo',
+    location: '15 Coastal Hwy, Malibu',
+    beds: 3,
+    baths: 2.5,
+    area: '165m²',
+    image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80',
+    type: 'RENT'
+  },
+  {
+    id: 'n13',
+    title: 'Contemporary Penthouse',
+    price: '$2,100,000',
+    location: '89 Broadway, New York',
+    beds: 3,
+    baths: 3,
+    area: '195m²',
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80',
+    type: 'SALE'
+  },
+  {
+    id: 'n14',
+    title: 'Lakefront Retreat',
+    price: '$3,500',
+    priceSuffix: '/mo',
+    location: '512 Lakeview Dr, Tahoe',
+    beds: 3,
+    baths: 2,
+    area: '130m²',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
+    type: 'RENT'
+  },
+  {
+    id: 'n15',
+    title: 'Charming Country Cottage',
+    price: '$450,000',
+    location: '33 Meadow Lane, Cotswolds',
+    beds: 2,
+    baths: 1.5,
+    area: '88m²',
+    image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80',
+    type: 'SALE'
+  },
+  {
+    id: 'n16',
+    title: 'Modernist Desert Oasis',
+    price: '$4,200',
+    priceSuffix: '/mo',
+    location: '77 Palm Canyon Dr, Palm Springs',
+    beds: 3,
+    baths: 3,
+    area: '175m²',
+    image: 'https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&w=800&q=80',
+    type: 'RENT'
   }
 ];
