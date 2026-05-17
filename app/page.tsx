@@ -1,9 +1,67 @@
 import Navbar from './components/Navbar';
 import FeaturedPropertyCard from './components/FeaturedPropertyCard';
 import PropertyCard from './components/PropertyCard';
-import { featuredProperties, newProperties } from './data/mockData';
+import { supabase } from '../lib/supabase';
+import Link from 'next/link';
+import { Property, FeaturedProperty } from './data/mockData';
 
-export default function Home() {
+export default async function Home(
+  props: {
+    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+  const page = typeof searchParams?.page === 'string' ? parseInt(searchParams.page, 10) : 1;
+  const itemsPerPage = 8;
+  const from = (page - 1) * itemsPerPage;
+  const to = from + itemsPerPage - 1;
+
+  // Fetch featured properties (is_featured = true)
+  const { data: featuredData } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('is_featured', true)
+    .order('id', { ascending: true });
+
+  // Fetch paginated regular properties (is_featured = false)
+  const { data: paginatedData, count } = await supabase
+    .from('properties')
+    .select('*', { count: 'exact' })
+    .eq('is_featured', false)
+    .order('id', { ascending: true })
+    .range(from, to);
+
+  const featuredProperties: FeaturedProperty[] = (featuredData || []).map(p => ({
+    id: p.id,
+    title: p.title,
+    location: p.location,
+    price: p.price,
+    beds: p.beds,
+    baths: p.baths,
+    area: p.area,
+    image: p.image,
+    tag: p.tag
+  }));
+
+  const newProperties: Property[] = (paginatedData || []).map(p => ({
+    id: p.id,
+    title: p.title,
+    location: p.location,
+    price: p.price,
+    beds: p.beds,
+    baths: p.baths,
+    area: p.area,
+    image: p.image,
+    type: p.type,
+    priceSuffix: p.price_suffix,
+    hiddenClass: p.hidden_class
+  }));
+  
+  const totalItems = count || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const hasNextPage = page < totalPages;
+  const hasPrevPage = page > 1;
+
   return (
     <>
       <Navbar />
@@ -112,11 +170,40 @@ export default function Home() {
             ))}
           </div>
           
-          <div className="mt-12 text-center">
-            <button className="px-8 py-3 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-medium rounded-lg transition-all hover:shadow-md">
-              Load more properties
-            </button>
-          </div>
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="mt-12 flex justify-center items-center gap-4">
+              {hasPrevPage ? (
+                <Link 
+                  href={`/?page=${page - 1}`}
+                  className="px-6 py-2 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-medium rounded-lg transition-all hover:shadow-md"
+                >
+                  Previous
+                </Link>
+              ) : (
+                <button disabled className="px-6 py-2 bg-gray-50 border border-gray-200 text-gray-400 font-medium rounded-lg cursor-not-allowed">
+                  Previous
+                </button>
+              )}
+
+              <span className="text-sm font-medium text-nordic-muted">
+                Page {page} of {totalPages}
+              </span>
+
+              {hasNextPage ? (
+                <Link 
+                  href={`/?page=${page + 1}`}
+                  className="px-6 py-2 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-medium rounded-lg transition-all hover:shadow-md"
+                >
+                  Next
+                </Link>
+              ) : (
+                <button disabled className="px-6 py-2 bg-gray-50 border border-gray-200 text-gray-400 font-medium rounded-lg cursor-not-allowed">
+                  Next
+                </button>
+              )}
+            </div>
+          )}
         </section>
       </main>
     </>
