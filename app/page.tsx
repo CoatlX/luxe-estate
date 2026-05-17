@@ -33,25 +33,27 @@ export default async function Home(
 
   const featuredProperties: FeaturedProperty[] = (featuredData || []).map(p => ({
     id: p.id,
+    slug: p.slug,
     title: p.title,
     location: p.location,
     price: p.price,
     beds: p.beds,
     baths: p.baths,
     area: p.area,
-    image: p.image,
+    images: p.images,
     tag: p.tag
   }));
 
   const newProperties: Property[] = (paginatedData || []).map(p => ({
     id: p.id,
+    slug: p.slug,
     title: p.title,
     location: p.location,
     price: p.price,
     beds: p.beds,
     baths: p.baths,
     area: p.area,
-    image: p.image,
+    images: p.images,
     type: p.type,
     priceSuffix: p.price_suffix,
     hiddenClass: p.hidden_class
