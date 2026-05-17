@@ -1,0 +1,82 @@
+{
+  "home": {
+    "hero": {
+      "title_prefix": "Find your ",
+      "title_highlight": "sanctuary",
+      "title_suffix": "."
+    },
+    "search": {
+      "placeholder": "Search by city, neighborhood, or address...",
+      "button": "Search"
+    },
+    "filters": {
+      "all": "All",
+      "house": "House",
+      "apartment": "Apartment",
+      "villa": "Villa",
+      "penthouse": "Penthouse",
+      "button": "Filters"
+    },
+    "featured": {
+      "title": "Featured Collections",
+      "subtitle": "Curated properties for the discerning eye.",
+      "view_all": "View all"
+    },
+    "new_in_market": {
+      "title": "New in Market",
+      "subtitle": "Fresh opportunities added this week.",
+      "search_results_title": "Search Results",
+      "search_results_subtitle": "Found {count} properties matching your criteria.",
+      "buy": "Buy",
+      "rent": "Rent"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page_of": "Page {page} of {totalPages}"
+    }
+  },
+  "modal": {
+    "title": "Filters",
+    "location_label": "Location or Title",
+    "price_range": "Price Range",
+    "min_price": "Min Price",
+    "max_price": "Max Price",
+    "property_type": "Property Type",
+    "any_type": "Any Type",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "any": "Any",
+    "clear_all": "Clear all filters",
+    "show_homes": "Show Homes"
+  },
+  "navbar": {
+    "buy": "Buy",
+    "rent": "Rent",
+    "sell": "Sell",
+    "saved_homes": "Saved Homes"
+  },
+  "property": {
+    "for_sale": "FOR SALE",
+    "for_rent": "FOR RENT",
+    "premium": "Premium",
+    "view_all_photos": "View All Photos",
+    "top_rated_agent": "Top Rated Agent",
+    "schedule_visit": "Schedule Visit",
+    "contact_agent": "Contact Agent",
+    "property_features": "Property Features",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "garage": "Garage",
+    "about_this_home": "About this home",
+    "read_more": "Read more",
+    "amenities": "Amenities",
+    "smart_home": "Smart Home System",
+    "swimming_pool": "Swimming Pool",
+    "heating_cooling": "Central Heating & Cooling",
+    "ev_charging": "Electric Vehicle Charging",
+    "estimated_payment": "Estimated Payment",
+    "calculate_desc": "Calculate your monthly rate based on down payment.",
+    "calculate_button": "Calculate Mortgage"
+  }
+}

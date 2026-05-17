@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import PropertyMapWrapper from '../../components/PropertyMapWrapper';
 import { Metadata } from 'next';
 import Image from 'next/image';
+import { getDictionary } from '../../../i18n/dictionary';
 
 export async function generateMetadata(
   props: { params: Promise<{ slug: string }> }
@@ -43,6 +44,7 @@ export default async function PropertyDetails(
     notFound();
   }
 
+  const dict = await getDictionary();
   const galleryImages = property.images && property.images.length > 0 ? property.images : [];
 
   return (
@@ -64,7 +66,7 @@ export default async function PropertyDetails(
               />
               <div className="absolute top-4 left-4 flex gap-2">
                 {property.is_featured && (
-                  <span className="bg-mosque text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">Premium</span>
+                  <span className="bg-mosque text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">{dict.property.premium}</span>
                 )}
                 {property.tag && (
                   <span className="bg-white/90 backdrop-blur text-nordic text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">{property.tag}</span>
@@ -72,7 +74,7 @@ export default async function PropertyDetails(
               </div>
               <button className="absolute bottom-4 right-4 bg-white/90 hover:bg-white text-nordic px-4 py-2 rounded-lg text-sm font-medium shadow-lg backdrop-blur transition-all flex items-center gap-2">
                 <span className="material-icons text-sm">grid_view</span>
-                View All Photos
+                {dict.property.view_all_photos}
               </button>
             </div>
             
@@ -120,7 +122,7 @@ export default async function PropertyDetails(
                     <h3 className="font-semibold text-nordic">Sarah Jenkins</h3>
                     <div className="flex items-center gap-1 text-xs text-mosque font-medium">
                       <span className="material-icons text-[14px]">star</span>
-                      <span>Top Rated Agent</span>
+                      <span>{dict.property.top_rated_agent}</span>
                     </div>
                   </div>
                   <div className="ml-auto flex gap-2">
@@ -136,11 +138,11 @@ export default async function PropertyDetails(
                 <div className="space-y-3">
                   <button className="w-full bg-mosque hover:bg-primary-hover text-white py-4 px-6 rounded-lg font-medium transition-all shadow-lg shadow-mosque/20 flex items-center justify-center gap-2 group">
                     <span className="material-icons text-xl group-hover:scale-110 transition-transform">calendar_today</span>
-                    Schedule Visit
+                    {dict.property.schedule_visit}
                   </button>
                   <button className="w-full bg-transparent border border-nordic/10 hover:border-mosque text-nordic/80 hover:text-mosque py-4 px-6 rounded-lg font-medium transition-all flex items-center justify-center gap-2">
                     <span className="material-icons text-xl">mail_outline</span>
-                    Contact Agent
+                    {dict.property.contact_agent}
                   </button>
                 </div>
               </div>
@@ -159,7 +161,7 @@ export default async function PropertyDetails(
           <div className="lg:col-span-8 space-y-8">
             
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
-              <h2 className="text-lg font-semibold mb-6 text-nordic">Property Features</h2>
+              <h2 className="text-lg font-semibold mb-6 text-nordic">{dict.property.property_features}</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">square_foot</span>
@@ -168,23 +170,23 @@ export default async function PropertyDetails(
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">bed</span>
                   <span className="text-xl font-bold text-nordic">{property.beds}</span>
-                  <span className="text-xs uppercase tracking-wider text-nordic/50">Bedrooms</span>
+                  <span className="text-xs uppercase tracking-wider text-nordic/50">{dict.property.bedrooms}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">shower</span>
                   <span className="text-xl font-bold text-nordic">{property.baths}</span>
-                  <span className="text-xs uppercase tracking-wider text-nordic/50">Bathrooms</span>
+                  <span className="text-xs uppercase tracking-wider text-nordic/50">{dict.property.bathrooms}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">directions_car</span>
                   <span className="text-xl font-bold text-nordic">2</span>
-                  <span className="text-xs uppercase tracking-wider text-nordic/50">Garage</span>
+                  <span className="text-xs uppercase tracking-wider text-nordic/50">{dict.property.garage}</span>
                 </div>
               </div>
             </div>
 
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
-              <h2 className="text-lg font-semibold mb-4 text-nordic">About this home</h2>
+              <h2 className="text-lg font-semibold mb-4 text-nordic">{dict.property.about_this_home}</h2>
               <div className="prose prose-slate max-w-none text-nordic/70 leading-relaxed">
                 <p className="mb-4">
                   Experience modern luxury in this architecturally stunning home located in the heart of {property.location}. Designed with an emphasis on indoor-outdoor living, the residence features floor-to-ceiling glass walls that flood the interiors with natural light.
@@ -194,29 +196,29 @@ export default async function PropertyDetails(
                 </p>
               </div>
               <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                Read more
+                {dict.property.read_more}
                 <span className="material-icons text-sm">arrow_forward</span>
               </button>
             </div>
 
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
-              <h2 className="text-lg font-semibold mb-6 text-nordic">Amenities</h2>
+              <h2 className="text-lg font-semibold mb-6 text-nordic">{dict.property.amenities}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                 <div className="flex items-center gap-3 text-nordic/70">
                   <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                  <span>Smart Home System</span>
+                  <span>{dict.property.smart_home}</span>
                 </div>
                 <div className="flex items-center gap-3 text-nordic/70">
                   <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                  <span>Swimming Pool</span>
+                  <span>{dict.property.swimming_pool}</span>
                 </div>
                 <div className="flex items-center gap-3 text-nordic/70">
                   <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                  <span>Central Heating & Cooling</span>
+                  <span>{dict.property.heating_cooling}</span>
                 </div>
                 <div className="flex items-center gap-3 text-nordic/70">
                   <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                  <span>Electric Vehicle Charging</span>
+                  <span>{dict.property.ev_charging}</span>
                 </div>
               </div>
             </div>
@@ -227,12 +229,12 @@ export default async function PropertyDetails(
                   <span className="material-icons">calculate</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-nordic">Estimated Payment</h3>
-                  <p className="text-sm text-nordic/60">Calculate your monthly rate based on down payment.</p>
+                  <h3 className="font-semibold text-nordic">{dict.property.estimated_payment}</h3>
+                  <p className="text-sm text-nordic/60">{dict.property.calculate_desc}</p>
                 </div>
               </div>
               <button className="whitespace-nowrap px-4 py-2 bg-white border border-nordic/10 rounded-lg text-sm font-semibold hover:border-mosque transition-colors text-nordic">
-                Calculate Mortgage
+                {dict.property.calculate_button}
               </button>
             </div>
 

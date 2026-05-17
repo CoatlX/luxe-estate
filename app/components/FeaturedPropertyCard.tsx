@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { FeaturedProperty } from '../data/mockData';
+import { getDictionary } from '../../i18n/dictionary';
 
-export default function FeaturedPropertyCard({ property }: { property: FeaturedProperty }) {
+export default async function FeaturedPropertyCard({ property }: { property: FeaturedProperty }) {
+  const dict = await getDictionary();
   return (
     <Link href={`/properties/${property.slug}`} className="block">
       <div className="group relative rounded-xl overflow-hidden shadow-soft bg-white cursor-pointer h-full flex flex-col">
@@ -38,10 +40,10 @@ export default function FeaturedPropertyCard({ property }: { property: FeaturedP
           </div>
           <div className="flex items-center gap-6 mt-auto pt-6 border-t border-nordic-dark/5">
             <div className="flex items-center gap-2 text-nordic-muted text-sm">
-              <span className="material-icons text-lg">king_bed</span> {property.beds} Beds
+              <span className="material-icons text-lg">king_bed</span> {property.beds} {dict.modal.bedrooms}
             </div>
             <div className="flex items-center gap-2 text-nordic-muted text-sm">
-              <span className="material-icons text-lg">bathtub</span> {property.baths} Baths
+              <span className="material-icons text-lg">bathtub</span> {property.baths} {dict.modal.bathrooms}
             </div>
             <div className="flex items-center gap-2 text-nordic-muted text-sm">
               <span className="material-icons text-lg">square_foot</span> {property.area}

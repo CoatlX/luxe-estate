@@ -1,0 +1,82 @@
+{
+  "home": {
+    "hero": {
+      "title_prefix": "Trouvez votre ",
+      "title_highlight": "sanctuaire",
+      "title_suffix": "."
+    },
+    "search": {
+      "placeholder": "Recherchez par ville, quartier ou adresse...",
+      "button": "Rechercher"
+    },
+    "filters": {
+      "all": "Tout",
+      "house": "Maison",
+      "apartment": "Appartement",
+      "villa": "Villa",
+      "penthouse": "Attique",
+      "button": "Filtres"
+    },
+    "featured": {
+      "title": "Collections en Vedette",
+      "subtitle": "Propriétés sélectionnées pour les connaisseurs.",
+      "view_all": "Voir tout"
+    },
+    "new_in_market": {
+      "title": "Nouveautés sur le Marché",
+      "subtitle": "Nouvelles opportunités ajoutées cette semaine.",
+      "search_results_title": "Résultats de Recherche",
+      "search_results_subtitle": "{count} propriétés correspondant à vos critères trouvées.",
+      "buy": "Acheter",
+      "rent": "Louer"
+    },
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "page_of": "Page {page} sur {totalPages}"
+    }
+  },
+  "modal": {
+    "title": "Filtres",
+    "location_label": "Lieu ou Titre",
+    "price_range": "Fourchette de Prix",
+    "min_price": "Prix Min",
+    "max_price": "Prix Max",
+    "property_type": "Type de Propriété",
+    "any_type": "Tous Types",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "any": "Tous",
+    "clear_all": "Effacer tous les filtres",
+    "show_homes": "Afficher les Maisons"
+  },
+  "navbar": {
+    "buy": "Acheter",
+    "rent": "Louer",
+    "sell": "Vendre",
+    "saved_homes": "Sauvegardés"
+  },
+  "property": {
+    "for_sale": "À VENDRE",
+    "for_rent": "À LOUER",
+    "premium": "Premium",
+    "view_all_photos": "Voir toutes les photos",
+    "top_rated_agent": "Agent très bien noté",
+    "schedule_visit": "Planifier une visite",
+    "contact_agent": "Contacter l'agent",
+    "property_features": "Caractéristiques",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "garage": "Garage",
+    "about_this_home": "À propos de cette maison",
+    "read_more": "Lire la suite",
+    "amenities": "Commodités",
+    "smart_home": "Maison Intelligente",
+    "swimming_pool": "Piscine",
+    "heating_cooling": "Chauffage et Climatisation",
+    "ev_charging": "Recharge de Véhicules Électriques",
+    "estimated_payment": "Paiement Estimé",
+    "calculate_desc": "Calculez votre taux mensuel basé sur l'acompte.",
+    "calculate_button": "Calculer l'hypothèque"
+  }
+}

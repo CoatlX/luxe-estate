@@ -1,0 +1,82 @@
+{
+  "home": {
+    "hero": {
+      "title_prefix": "Encuentra tu ",
+      "title_highlight": "santuario",
+      "title_suffix": "."
+    },
+    "search": {
+      "placeholder": "Busca por ciudad, vecindario o dirección...",
+      "button": "Buscar"
+    },
+    "filters": {
+      "all": "Todos",
+      "house": "Casa",
+      "apartment": "Departamento",
+      "villa": "Villa",
+      "penthouse": "Penthouse",
+      "button": "Filtros"
+    },
+    "featured": {
+      "title": "Colecciones Destacadas",
+      "subtitle": "Propiedades seleccionadas para el ojo exigente.",
+      "view_all": "Ver todo"
+    },
+    "new_in_market": {
+      "title": "Novedades en el Mercado",
+      "subtitle": "Oportunidades frescas añadidas esta semana.",
+      "search_results_title": "Resultados de Búsqueda",
+      "search_results_subtitle": "Se encontraron {count} propiedades que coinciden con tu criterio.",
+      "buy": "Comprar",
+      "rent": "Rentar"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "page_of": "Página {page} de {totalPages}"
+    }
+  },
+  "modal": {
+    "title": "Filtros",
+    "location_label": "Ubicación o Título",
+    "price_range": "Rango de Precios",
+    "min_price": "Precio Mín",
+    "max_price": "Precio Máx",
+    "property_type": "Tipo de Propiedad",
+    "any_type": "Cualquier Tipo",
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "any": "Cualq.",
+    "clear_all": "Limpiar todos los filtros",
+    "show_homes": "Mostrar Propiedades"
+  },
+  "navbar": {
+    "buy": "Comprar",
+    "rent": "Rentar",
+    "sell": "Vender",
+    "saved_homes": "Guardados"
+  },
+  "property": {
+    "for_sale": "EN VENTA",
+    "for_rent": "EN RENTA",
+    "premium": "Premium",
+    "view_all_photos": "Ver Todas las Fotos",
+    "top_rated_agent": "Agente Destacado",
+    "schedule_visit": "Agendar Visita",
+    "contact_agent": "Contactar Agente",
+    "property_features": "Características",
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "garage": "Garaje",
+    "about_this_home": "Acerca de la propiedad",
+    "read_more": "Leer más",
+    "amenities": "Amenidades",
+    "smart_home": "Casa Inteligente",
+    "swimming_pool": "Piscina",
+    "heating_cooling": "Aire Acondicionado Central",
+    "ev_charging": "Carga de Vehículos Eléctricos",
+    "estimated_payment": "Pago Estimado",
+    "calculate_desc": "Calcula tu pago mensual basado en el enganche.",
+    "calculate_button": "Calcular Hipoteca"
+  }
+}

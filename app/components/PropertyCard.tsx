@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Property } from '../data/mockData';
+import { getDictionary } from '../../i18n/dictionary';
 
-export default function PropertyCard({ property }: { property: Property }) {
+export default async function PropertyCard({ property }: { property: Property }) {
+  const dict = await getDictionary();
   const badgeColors = property.type === 'SALE' 
     ? 'bg-nordic-dark/90' 
     : 'bg-mosque/90';
@@ -20,7 +22,7 @@ export default function PropertyCard({ property }: { property: Property }) {
             <span className="material-icons text-lg">favorite_border</span>
           </button>
           <div className={`absolute bottom-3 left-3 ${badgeColors} text-white text-xs font-bold px-2 py-1 rounded`}>
-            FOR {property.type}
+            {property.type === 'SALE' ? dict.property.for_sale : dict.property.for_rent}
           </div>
         </div>
         <div className="p-4 flex flex-col flex-grow">

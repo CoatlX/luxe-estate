@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FilterModal from './FilterModal';
 
-export default function HomeSearch() {
+export default function HomeSearch({ dict }: { dict: any }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -37,7 +37,13 @@ export default function HomeSearch() {
     router.push(`/?${params.toString()}`);
   };
 
-  const types = ['All', 'House', 'Apartment', 'Villa', 'Penthouse'];
+  const types = [
+    { value: 'All', label: dict.home.filters.all },
+    { value: 'House', label: dict.home.filters.house },
+    { value: 'Apartment', label: dict.home.filters.apartment },
+    { value: 'Villa', label: dict.home.filters.villa },
+    { value: 'Penthouse', label: dict.home.filters.penthouse }
+  ];
 
   return (
     <>
@@ -46,7 +52,7 @@ export default function HomeSearch() {
         <form onSubmit={handleSearchSubmit} className="flex-grow">
           <input
             className="w-full bg-transparent border-0 text-nordic-dark placeholder-nordic-muted px-4 py-4 focus:ring-0 text-lg outline-none"
-            placeholder="Search by city, neighborhood, or address..."
+            placeholder={dict.home.search.placeholder}
             type="text"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
@@ -56,22 +62,22 @@ export default function HomeSearch() {
           onClick={handleSearchSubmit}
           className="bg-mosque hover:bg-primary-hover text-white px-8 py-3.5 rounded-xl font-medium transition-colors shadow-md hidden sm:block"
         >
-          Search
+          {dict.home.search.button}
         </button>
       </div>
       
       <div className="flex flex-wrap items-center justify-center gap-3">
-        {types.map((type) => (
+        {types.map((typeObj) => (
           <button
-            key={type}
-            onClick={() => handleTypeClick(type)}
+            key={typeObj.value}
+            onClick={() => handleTypeClick(typeObj.value)}
             className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
-              currentType === type
+              currentType === typeObj.value
                 ? 'bg-nordic-dark text-white shadow-md'
                 : 'bg-white text-nordic-dark hover:bg-nordic-dark/5 shadow-sm border border-nordic-dark/5'
             }`}
           >
-            {type}
+            {typeObj.label}
           </button>
         ))}
         
@@ -81,11 +87,11 @@ export default function HomeSearch() {
           onClick={() => setIsModalOpen(true)}
           className="px-6 py-2.5 rounded-full text-sm font-medium bg-white text-nordic-dark hover:bg-nordic-dark/5 transition-all shadow-sm border border-nordic-dark/5 flex items-center gap-2"
         >
-          <span className="material-icons text-lg">tune</span> Filters
+          <span className="material-icons text-lg">tune</span> {dict.home.filters.button}
         </button>
       </div>
 
-      <FilterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <FilterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} dict={dict} />
     </>
   );
 }
