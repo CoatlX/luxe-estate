@@ -1,9 +1,10 @@
 import Navbar from './components/Navbar';
 import FeaturedPropertyCard from './components/FeaturedPropertyCard';
 import PropertyCard from './components/PropertyCard';
+import HomeSearch from './components/HomeSearch';
 import { supabase } from '../lib/supabase';
-import Link from 'next/link';
 import { Property, FeaturedProperty } from './data/mockData';
+import Link from 'next/link';
 
 export default async function Home(
   props: {
@@ -16,6 +17,15 @@ export default async function Home(
   const from = (page - 1) * itemsPerPage;
   const to = from + itemsPerPage - 1;
 
+  const query = typeof searchParams?.query === 'string' ? searchParams.query : '';
+  const typeFilter = typeof searchParams?.type === 'string' ? searchParams.type : '';
+  const minPrice = typeof searchParams?.minPrice === 'string' ? parseInt(searchParams.minPrice, 10) : 0;
+  const maxPrice = typeof searchParams?.maxPrice === 'string' ? parseInt(searchParams.maxPrice, 10) : 0;
+  const beds = typeof searchParams?.beds === 'string' ? parseInt(searchParams.beds, 10) : 0;
+  const baths = typeof searchParams?.baths === 'string' ? parseInt(searchParams.baths, 10) : 0;
+
+  const hasActiveFilters = !!(query || (typeFilter && typeFilter !== 'Any Type' && typeFilter !== 'All') || minPrice > 0 || maxPrice > 0 || beds > 0 || baths > 0);
+
   // Fetch featured properties (is_featured = true)
   const { data: featuredData } = await supabase
     .from('properties')
@@ -23,10 +33,37 @@ export default async function Home(
     .eq('is_featured', true)
     .order('id', { ascending: true });
 
-  // Fetch paginated regular properties (is_featured = false)
-  const { data: paginatedData, count } = await supabase
+  // Build the main query with filters for regular properties
+  let dbQuery = supabase
     .from('properties')
-    .select('*', { count: 'exact' })
+    .select('*', { count: 'exact' });
+
+  if (query) {
+    dbQuery = dbQuery.or(`location.ilike.%${query}%,title.ilike.%${query}%`);
+  }
+  
+  if (typeFilter && typeFilter !== 'Any Type') {
+    // Basic mapping since the UI has fine-grained types but DB currently just has SALE/RENT.
+    // For now, assume Apartment/Penthouse = RENT, House/Villa = SALE for demonstration,
+    // or just search in 'tag'/'title' if 'type' in DB is strict. Let's search in title for exact property types if they exist.
+    dbQuery = dbQuery.ilike('title', `%${typeFilter}%`);
+  }
+
+  if (minPrice > 0) {
+    dbQuery = dbQuery.gte('price_numeric', minPrice);
+  }
+  if (maxPrice > 0) {
+    dbQuery = dbQuery.lte('price_numeric', maxPrice);
+  }
+  if (beds > 0) {
+    dbQuery = dbQuery.gte('beds', beds);
+  }
+  if (baths > 0) {
+    dbQuery = dbQuery.gte('baths', baths);
+  }
+
+  // Execute paginated query for standard properties
+  const { data: paginatedData, count } = await dbQuery
     .eq('is_featured', false)
     .order('id', { ascending: true })
     .range(from, to);
@@ -79,78 +116,43 @@ export default async function Home(
               </span>
               .
             </h1>
-            <div className="relative group max-w-2xl mx-auto">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <span className="material-icons text-nordic-muted text-2xl group-focus-within:text-mosque transition-colors">
-                  search
-                </span>
-              </div>
-              <input
-                className="block w-full pl-12 pr-4 py-4 rounded-xl border-none bg-white text-nordic-dark shadow-soft placeholder-nordic-muted/60 focus:ring-2 focus:ring-mosque focus:bg-white transition-all text-lg"
-                placeholder="Search by city, neighborhood, or address..."
-                type="text"
-              />
-              <button className="absolute inset-y-2 right-2 px-6 bg-mosque hover:bg-mosque/90 text-white font-medium rounded-lg transition-colors flex items-center justify-center shadow-lg shadow-mosque/20">
-                Search
-              </button>
-            </div>
-            
-            {/* Filter Buttons */}
-            <div className="flex items-center justify-center gap-3 overflow-x-auto hide-scroll py-2 px-4 -mx-4">
-              <button className="whitespace-nowrap px-5 py-2 rounded-full bg-nordic-dark text-white text-sm font-medium shadow-lg shadow-nordic-dark/10 transition-transform hover:-translate-y-0.5">
-                All
-              </button>
-              <button className="whitespace-nowrap px-5 py-2 rounded-full bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 text-sm font-medium transition-all hover:bg-mosque/5">
-                House
-              </button>
-              <button className="whitespace-nowrap px-5 py-2 rounded-full bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 text-sm font-medium transition-all hover:bg-mosque/5">
-                Apartment
-              </button>
-              <button className="whitespace-nowrap px-5 py-2 rounded-full bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 text-sm font-medium transition-all hover:bg-mosque/5">
-                Villa
-              </button>
-              <button className="whitespace-nowrap px-5 py-2 rounded-full bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 text-sm font-medium transition-all hover:bg-mosque/5">
-                Penthouse
-              </button>
-              <div className="w-px h-6 bg-nordic-dark/10 mx-2"></div>
-              <button className="whitespace-nowrap flex items-center gap-1 px-4 py-2 rounded-full text-nordic-dark font-medium text-sm hover:bg-black/5 transition-colors">
-                <span className="material-icons text-base">tune</span> Filters
-              </button>
-            </div>
+            <HomeSearch />
           </div>
         </section>
 
         {/* Featured Collections Section */}
-        <section className="mb-16">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <h2 className="text-2xl font-light text-nordic-dark">
-                Featured Collections
-              </h2>
-              <p className="text-nordic-muted mt-1 text-sm">
-                Curated properties for the discerning eye.
-              </p>
+        {!hasActiveFilters && (
+          <section className="mb-16">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="text-2xl font-light text-nordic-dark">
+                  Featured Collections
+                </h2>
+                <p className="text-nordic-muted mt-1 text-sm">
+                  Curated properties for the discerning eye.
+                </p>
+              </div>
+              <a className="hidden sm:flex items-center gap-1 text-sm font-medium text-mosque hover:opacity-70 transition-opacity" href="#">
+                View all <span className="material-icons text-sm">arrow_forward</span>
+              </a>
             </div>
-            <a className="hidden sm:flex items-center gap-1 text-sm font-medium text-mosque hover:opacity-70 transition-opacity" href="#">
-              View all <span className="material-icons text-sm">arrow_forward</span>
-            </a>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {featuredProperties.map((property) => (
-              <FeaturedPropertyCard key={property.id} property={property} />
-            ))}
-          </div>
-        </section>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {featuredProperties.map((property) => (
+                <FeaturedPropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* New in Market Section */}
         <section>
           <div className="flex items-end justify-between mb-8">
             <div>
               <h2 className="text-2xl font-light text-nordic-dark">
-                New in Market
+                {hasActiveFilters ? 'Search Results' : 'New in Market'}
               </h2>
               <p className="text-nordic-muted mt-1 text-sm">
-                Fresh opportunities added this week.
+                {hasActiveFilters ? `Found ${totalItems} properties matching your criteria.` : 'Fresh opportunities added this week.'}
               </p>
             </div>
             <div className="hidden md:flex bg-white p-1 rounded-lg">
